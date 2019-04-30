@@ -28,3 +28,9 @@ let rec contains tree value =
     | Node (nodeValue, _, rhs) when value > nodeValue -> contains rhs value
     | Node (_, _, _) -> true
     | Empty -> false
+
+/// Convert the given BST into a list.
+let rec toList tree =
+    match tree with
+    | Node (value, lhs, rhs) -> (toList lhs) @ [value] @ (toList rhs)
+    | Empty -> []
