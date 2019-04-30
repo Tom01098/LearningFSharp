@@ -24,6 +24,7 @@ let rec insert tree value =
 /// Does the given BST contain the value?
 let rec contains tree value =
     match tree with
-    | Node (nodeValue, _, _) when value = nodeValue -> true
-    | Node (_, lhs, rhs) -> contains lhs value || contains rhs value
+    | Node (nodeValue, lhs, _) when value < nodeValue -> contains lhs value
+    | Node (nodeValue, _, rhs) when value > nodeValue -> contains rhs value
+    | Node (_, _, _) -> true
     | Empty -> false
