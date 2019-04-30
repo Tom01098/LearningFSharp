@@ -1,7 +1,7 @@
 ﻿module BinarySearchTree
 
 /// A recursively-defined Binary Search Tree (BST).
-type Tree<'a> =
+type Tree<'a when 'a : comparison> =
     | Node of 'a * Tree<'a> * Tree<'a>
     | Empty
 
