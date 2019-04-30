@@ -20,3 +20,10 @@ let rec insert tree value =
         Node (nodeValue, lhs, insert rhs value)
     | Node (_, lhs, rhs) -> Node (value, lhs, rhs)
     | Empty -> Node (value, Empty, Empty)
+
+/// Does the given BST contain the value?
+let rec contains tree value =
+    match tree with
+    | Node (nodeValue, _, _) when value = nodeValue -> true
+    | Node (_, lhs, rhs) -> contains lhs value || contains rhs value
+    | Empty -> false
