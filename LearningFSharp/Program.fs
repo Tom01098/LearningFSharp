@@ -1,8 +1,12 @@
-﻿// Learn more about F# at http://fsharp.org
-
+﻿open BinarySearchTree
+open LoggingUtility
 open System
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+    let tree = createEmptyTree
+    logObj tree
+
+    // Waiting for a key press before closing the console.
+    Console.ReadKey() |> ignore
+    0
