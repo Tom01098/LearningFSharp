@@ -10,3 +10,13 @@ let createEmptyTree = Empty
 
 /// Create a BST with the given value as the root.
 let createTree value = Node (value, Empty, Empty)
+
+/// Insert a value into the given BST.
+let rec insert tree value =
+    match tree with
+    | Node (nodeValue, lhs, rhs) when value < nodeValue -> 
+        Node (nodeValue, insert lhs value, rhs)
+    | Node (nodeValue, lhs, rhs) when value > nodeValue -> 
+        Node (nodeValue, lhs, insert rhs value)
+    | Node (_, lhs, rhs) -> Node (value, lhs, rhs)
+    | Empty -> Node (value, Empty, Empty)

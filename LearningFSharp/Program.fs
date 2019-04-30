@@ -4,7 +4,13 @@ open System
 
 [<EntryPoint>]
 let main argv =
-    let tree = createEmptyTree
+    let mutable tree = createTree 5
+    tree <- insert tree 6
+    tree <- insert tree 8
+    tree <- insert tree 3
+    tree <- insert tree 1
+    tree <- insert tree 9
+    tree <- insert tree 7
     logObj tree
 
     // Waiting for a key press before closing the console.
