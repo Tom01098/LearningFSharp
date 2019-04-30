@@ -34,3 +34,16 @@ let rec toList tree =
     match tree with
     | Node (value, lhs, rhs) -> (toList lhs) @ [value] @ (toList rhs)
     | Empty -> []
+
+/// Convert the given list into a BST.
+let toBST list =
+    let mutable tree = createEmptyTree
+
+    let rec toBSTImpl list =
+        match list with
+        | head :: tail -> 
+            tree <- insert tree head
+            toBSTImpl tail
+        | [] -> tree
+
+    toBSTImpl list
