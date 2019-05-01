@@ -21,6 +21,19 @@ let rec insert tree value =
     | Node (_, lhs, rhs) -> Node (value, lhs, rhs)
     | Empty -> Node (value, Empty, Empty)
 
+/// Append a list of elements into the given BST.
+let rec append tree list =
+    let mutable newTree = tree
+
+    let rec insertNext list =
+        match list with
+        | head :: tail ->
+            newTree <- insert newTree head
+            insertNext tail
+        | [] -> newTree
+
+    insertNext list
+
 /// Does the given BST contain the value?
 let rec contains tree value =
     match tree with
@@ -36,17 +49,7 @@ let rec toList tree =
     | Empty -> []
 
 /// Convert the given list into a BST.
-let toBST list =
-    let mutable tree = createEmptyTree
-
-    let rec toBSTImpl list =
-        match list with
-        | head :: tail -> 
-            tree <- insert tree head
-            toBSTImpl tail
-        | [] -> tree
-
-    toBSTImpl list
+let toBST list = append createEmptyTree list
 
 /// Get the largest element in the given BST.
 let rec largest tree = 
