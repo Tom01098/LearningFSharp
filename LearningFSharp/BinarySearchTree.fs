@@ -47,3 +47,21 @@ let toBST list =
         | [] -> tree
 
     toBSTImpl list
+
+/// Get the largest element in the given BST.
+let rec largest tree = 
+    match tree with
+    | Node (value, _, rhs) ->
+        match rhs with
+        | Node (_, _, _) -> largest rhs
+        | Empty -> Some value
+    | Empty -> None
+
+/// Get the smallest element in the given BST.
+let rec smallest tree = 
+    match tree with
+    | Node (value, lhs, _) ->
+        match lhs with
+        | Node (_, _, _) -> smallest lhs
+        | Empty -> Some value
+    | Empty -> None
