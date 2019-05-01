@@ -4,13 +4,10 @@ open System
 
 [<EntryPoint>]
 let main argv =
-    let mutable tree = createEmptyTree
-    tree <- insert tree 6
-    tree <- append tree [1..5]
+    let a = toBST [5; 2; 3; 7]
+    let b = toBST [4; 6; 9]
+    let tree = merge a b
     logObj tree
-
-    logObj (toList tree)
-    logObj (toBST [5; 6; 3; 9])
 
     // Waiting for a key press before closing the console.
     Console.ReadKey() |> ignore

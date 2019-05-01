@@ -51,6 +51,9 @@ let rec toList tree =
 /// Convert the given list into a BST.
 let toBST list = append createEmptyTree list
 
+/// Merge two BSTs.
+let merge a b = toList b |> append a
+
 /// Get the largest element in the given BST.
 let rec largest tree = 
     match tree with
