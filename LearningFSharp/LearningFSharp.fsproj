@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Parsing.fs" />
     <Compile Include="LoggingUtility.fs" />
     <Compile Include="BinarySearchTree.fs" />
     <Compile Include="Program.fs" />
