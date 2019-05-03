@@ -50,7 +50,7 @@ let ( <|> ) first second =
     Parser inner
 
 /// Parse a single character.
-let pchar char =
+let pChar char =
     let inner input =
         if String.IsNullOrEmpty(input) then
             Failure ("Empty input", input)
