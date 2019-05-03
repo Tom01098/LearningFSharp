@@ -2,31 +2,45 @@
 
 open System
 
-/// The result of parsing.
-type Result<'a> =
-    | Success of 'a
+type ParseResult<'a> =
+    | Success of 'a * string
     | Failure of string
 
-/// Wrapper for a parser function which transforms a string input
-/// into a result and a string of the remaining input.
-type Parser<'a> = Parser of (string -> Result<'a> * string)
+type Parser<'a> = Parser of (string -> ParseResult<'a>)
 
-/// Execute a parser function with input.
 let parse parser input =
     let (Parser inner) = parser
     inner input
 
-/// Successful if the current character is the same as the given one.
-let pchar char =
-    let inner str =
-        if String.IsNullOrEmpty(str) then
-            (Failure "Empty string", str)
-        else
-            let first = str.[0]
+let andThen first second = 
+    let inner input =
+        let fResult = parse first input
 
-            if first = char then
-                (Success str, str.[1..])
+        match fResult with
+        | Failure message -> Failure message
+        | Success (fValue, fRemaining) ->
+            let sResult = parse second fRemaining
+
+            match sResult with
+            | Failure message -> Failure message
+            | Success (sValue, sRemaining) ->
+                let newValue = (fValue, sValue)
+                Success (newValue, sRemaining)
+
+    Parser inner
+
+let ( .>>. ) = andThen
+
+let pchar char =
+    let inner input =
+        if String.IsNullOrEmpty(input) then
+            Failure "Empty input"
+        else
+            let inputChar = input.[0]
+
+            if inputChar = char then
+                Success (inputChar, input.[1..])
             else
-                (Failure "Unexpected character", str)
+                Failure "Characters do not match"
 
     Parser inner

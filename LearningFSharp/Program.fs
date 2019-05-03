@@ -5,8 +5,8 @@ open Parsing
 
 [<EntryPoint>]
 let main argv =
-    let pcharA = pchar 'A'
-    logObj (parse pcharA "ss")
+    let parser = pchar 'A' .>>. pchar 'B'
+    logObj (parse parser "ABB")
 
     // Waiting for a key press before closing the console.
     Console.ReadKey() |> ignore
