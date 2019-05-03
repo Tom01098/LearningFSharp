@@ -22,17 +22,10 @@ let rec insert tree value =
     | Empty -> Node (value, Empty, Empty)
 
 /// Append a list of elements into the given BST.
-let rec append tree list =
+let append tree list =
     let mutable newTree = tree
-
-    let rec insertNext list =
-        match list with
-        | head :: tail ->
-            newTree <- insert newTree head
-            insertNext tail
-        | [] -> newTree
-
-    insertNext list
+    list |> List.iter (fun x -> newTree <- insert newTree x)
+    newTree
 
 /// Does the given BST contain the value?
 let rec contains tree value =
