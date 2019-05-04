@@ -63,3 +63,13 @@ let pChar char =
                 Failure ("Characters do not match", input)
 
     Parser inner
+
+/// Parse an empty string.
+let pEmpty =
+    let inner input =
+        if String.IsNullOrEmpty(input) then
+            Success ("", "")
+        else
+            Failure ("Expected an empty input", "")
+
+    Parser inner
