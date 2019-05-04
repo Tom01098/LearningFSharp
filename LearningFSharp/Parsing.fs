@@ -4,8 +4,8 @@ open System
 
 /// The result of a parser function.
 type ParseResult<'a> =
-    | Success of 'a * string
-    | Failure of string * string
+    | Success of 'a
+    | Failure of string
 
 /// A parser function which takes a string input.
 type Parser<'a> = Parser of (string -> ParseResult<'a>)
@@ -21,15 +21,13 @@ let ( .>>. ) first second =
         let fResult = parse first input
 
         match fResult with
-        | Failure (message, input) -> Failure (message, input)
-        | Success (fValue, fRemaining) ->
+        | Failure message -> Failure message
+        | Success fRemaining ->
             let sResult = parse second fRemaining
 
             match sResult with
-            | Failure (message, input) -> Failure (message, input)
-            | Success (sValue, sRemaining) ->
-                let newValue = (fValue, sValue)
-                Success (newValue, sRemaining)
+            | Failure message -> Failure message
+            | Success sRemaining -> Success sRemaining
 
     Parser inner
 
@@ -39,13 +37,24 @@ let ( <|> ) first second =
         let fResult = parse first input
 
         match fResult with
-        | Success (fValue, fRemaining) -> Success (fValue, fRemaining)
+        | Success fRemaining -> Success fRemaining
         | Failure _ ->
             let sResult = parse second input
 
             match sResult with
-            | Success (sValue, sRemaining) -> Success (sValue, sRemaining)
-            | Failure (message, input) -> Failure (message, input)
+            | Success sRemaining -> Success sRemaining
+            | Failure message -> Failure message
+
+    Parser inner
+
+/// 'optional' combinator.
+let ( !? ) parser = 
+    let inner input = 
+        let result = parse parser input
+
+        match result with
+        | Success remaining -> Success remaining
+        | Failure _ -> Success input
 
     Parser inner
 
@@ -53,14 +62,14 @@ let ( <|> ) first second =
 let pChar char =
     let inner input =
         if String.IsNullOrEmpty(input) then
-            Failure ("Empty input", input)
+            Failure "Empty input"
         else
             let inputChar = input.[0]
 
             if inputChar = char then
-                Success (inputChar, input.[1..])
+                Success input.[1..]
             else
-                Failure ("Characters do not match", input)
+                Failure "Characters do not match"
 
     Parser inner
 
@@ -68,8 +77,8 @@ let pChar char =
 let pEmpty =
     let inner input =
         if String.IsNullOrEmpty(input) then
-            Success ("", "")
+            Success ""
         else
-            Failure ("Expected an empty input", "")
+            Failure "Expected an empty input"
 
     Parser inner
