@@ -58,6 +58,26 @@ let ( !? ) parser =
 
     Parser inner
 
+/// Parse a string.
+let pString string =
+    let inner input =
+        let strLen = String.length string
+
+        if String.IsNullOrEmpty(input) then
+            Failure "Empty input"
+        elif input.Length < strLen then
+            Failure "Input was shorter than the string to match against"
+        else
+            let str = input.[0..strLen-1]
+
+            if str = string then
+                Success input.[strLen..]
+            else
+                Failure "Input did not match string"
+            
+
+    Parser inner
+
 /// Parse a single character.
 let pChar char =
     let inner input =

@@ -5,11 +5,14 @@ open Parsing
 
 [<EntryPoint>]
 let main argv =
-    let parser = (pChar 'A' <|> pChar 'B') .>>. 
-                 !? (pChar 'C' <|> pChar 'D') .>>. 
-                 pEmpty
+    let parser = pString "Hello" 
+                 .>>. pChar ' '
+                 .>>. pString "World"
+                 .>>. !? (pChar '!')
+                 .>>. pEmpty
+                 
 
-    logObj <| parse parser "AD"
+    logObj <| parse parser "Hello World"
 
     // Waiting for a key press before closing the console.
     Console.ReadKey() |> ignore
