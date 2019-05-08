@@ -5,7 +5,12 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>5</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
+    <Compile Include="FizzBuzz.fs" />
     <Compile Include="Parsing.fs" />
     <Compile Include="LoggingUtility.fs" />
     <Compile Include="BinarySearchTree.fs" />

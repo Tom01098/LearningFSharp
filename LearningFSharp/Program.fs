@@ -2,17 +2,11 @@
 open LoggingUtility
 open System
 open Parsing
+open FizzBuzz
 
 [<EntryPoint>]
 let main argv =
-    let parser = pString "Hello" 
-                 .>>. pChar ' '
-                 .>>. pString "World"
-                 .>>. !? (pChar '!')
-                 .>>. pEmpty
-                 
-
-    logObj <| parse parser "Hello World"
+    FizzBuzzUpTo 15
 
     // Waiting for a key press before closing the console.
     Console.ReadKey() |> ignore
