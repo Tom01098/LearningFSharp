@@ -8,6 +8,7 @@ type ParseResult<'a> =
     | Failure of string
 
 /// A parser function which takes a string input.
+[<NoEquality; NoComparison>]
 type Parser<'a> = Parser of (string -> ParseResult<'a>)
 
 /// Parse an input with a given parser.
