@@ -30,3 +30,7 @@ let create value suit =
     | 13 -> Ok { Value = King; Suit = suit }
     | _ when value > 1 && value < 11 -> Ok <| { Value = Number value; Suit = suit }
     | _ -> Error <| sprintf "'%i' is not a valid card value" value
+
+/// Convert a playing card to a string form.
+let AsString {Value = value; Suit = suit} =
+    sprintf "%s of %s" (value.ToString()) (suit.ToString())
