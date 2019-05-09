@@ -75,7 +75,6 @@ let pString string =
                 Success input.[strLen..]
             else
                 Failure "Input did not match string"
-            
 
     Parser inner
 
