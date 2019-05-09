@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Cards.fs" />
     <Compile Include="FizzBuzz.fs" />
     <Compile Include="Parsing.fs" />
     <Compile Include="LoggingUtility.fs" />
