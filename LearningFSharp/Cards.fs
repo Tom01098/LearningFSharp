@@ -42,3 +42,9 @@ let deal (Deck deck) =
     match deck with
     | head :: tail -> Some (head, Deck tail)
     | [] -> None
+
+/// Is the deck empty?
+let isDeckEmpty (Deck deck) = deck.IsEmpty
+
+/// Is the hand empty?
+let isHandEmpty (Hand hand) = hand.IsEmpty
