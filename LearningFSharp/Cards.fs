@@ -50,3 +50,19 @@ let deal deck =
         | 1 -> (Some cards.[0], EmptyDeck)
         | _ -> (Some cards.[0], Deck cards.[1..])
     | EmptyDeck -> (None, EmptyDeck)
+
+/// Shuffle a deck of cards.
+let shuffle deck =
+    match deck with
+    | EmptyDeck -> EmptyDeck
+    | Deck cards ->
+        let rng = new System.Random()
+
+        let swap (arr: Card array) x y =
+            let temp = arr.[x]
+            arr.[x] <- arr.[y]
+            arr.[y] <- temp
+
+        Array.iteri (fun i _ -> swap cards i (rng.Next(i, cards.Length))) cards
+
+        Deck cards

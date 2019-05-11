@@ -7,7 +7,7 @@ open Cards
 
 [<EntryPoint>]
 let main argv =
-    logObj newDeck
+    logObj <| shuffle newDeck
 
     // Waiting for a key press before closing the console.
     Console.ReadKey() |> ignore
