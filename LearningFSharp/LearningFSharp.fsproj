@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="LoggingUtility.fs" />
     <Compile Include="Cards.fs" />
     <Compile Include="FizzBuzz.fs" />
     <Compile Include="Parsing.fs" />
-    <Compile Include="LoggingUtility.fs" />
     <Compile Include="BinarySearchTree.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
